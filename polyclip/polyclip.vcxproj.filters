@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gpc">
+      <UniqueIdentifier>{6e6016d4-bed9-49b4-a8be-a834a1797637}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="clipper">
+      <UniqueIdentifier>{cee4f024-8f88-4bcc-8455-36b6cd948c9e}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="greiner">
+      <UniqueIdentifier>{02bc14bd-f34c-4b5b-bb9f-f09e254e3417}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{5793a791-0489-4ab8-9f45-f0a7ca9b9cea}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="treeclip">
+      <UniqueIdentifier>{d4342942-e812-4c6e-8bf6-73e58fcb5199}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="gpc\gpc.cpp">
+      <Filter>gpc</Filter>
+    </ClCompile>
+    <ClCompile Include="clipper\clipper.cpp">
+      <Filter>clipper</Filter>
+    </ClCompile>
+    <ClCompile Include="greiner\greiner.cpp">
+      <Filter>greiner</Filter>
+    </ClCompile>
+    <ClCompile Include="common\connector.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\polygon.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="common\utilities.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="svg.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="treeclip\treeclip.cpp">
+      <Filter>treeclip</Filter>
+    </ClCompile>
+    <ClCompile Include="common\ticker.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="rotcalipers.cpp">
+      <Filter>treeclip</Filter>
+    </ClCompile>
+    <ClCompile Include="PolyStruct.cpp">
+      <Filter>treeclip</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gpc\gpc.h">
+      <Filter>gpc</Filter>
+    </ClInclude>
+    <ClInclude Include="clipper\clipper.hpp">
+      <Filter>clipper</Filter>
+    </ClInclude>
+    <ClInclude Include="greiner\greiner.h">
+      <Filter>greiner</Filter>
+    </ClInclude>
+    <ClInclude Include="common\connector.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\point.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\polygon.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\segment.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\utilities.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h" />
+    <ClInclude Include="svg.h" />
+    <ClInclude Include="treeclip\treeclip.h">
+      <Filter>treeclip</Filter>
+    </ClInclude>
+    <ClInclude Include="common\ticker.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="rotcalipers.h">
+      <Filter>treeclip</Filter>
+    </ClInclude>
+    <ClInclude Include="PolyStruct.h">
+      <Filter>treeclip</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
