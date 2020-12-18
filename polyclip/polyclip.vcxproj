@@ -87,7 +87,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath)</IncludePath>
     <SourcePath>$(SourcePath)</SourcePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>    
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -168,6 +168,7 @@
     <ClCompile Include="gpc\gpc.cpp" />
     <ClCompile Include="greiner\greiner.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="martinez\martinez.cpp" />
     <ClCompile Include="PolyStruct.cpp" />
     <ClCompile Include="rotcalipers.cpp" />
     <ClCompile Include="svg.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="common\utilities.h" />
     <ClInclude Include="gpc\gpc.h" />
     <ClInclude Include="greiner\greiner.h" />
+    <ClInclude Include="martinez\martinez.h" />
     <ClInclude Include="PolyStruct.h" />
     <ClInclude Include="rotcalipers.h" />
     <ClInclude Include="svg.h" />

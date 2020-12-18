@@ -10,8 +10,6 @@
 
 using namespace std;
 
-enum BoolOpType { INTERSECTION, UNION, DIFF, XOR };
-
 struct Vertex {
 	double x, y;
 	Vertex *prev, *next;
@@ -49,6 +47,8 @@ ostream& operator<< (ostream& o, GreinerContour& gc);
 
 class GreinerHormann {
 public:
+	enum BoolOpType { INTERSECTION, UNION, DIFF, XOR };
+
 	GreinerHormann (Polygon& p1, Polygon& p2);
 	~GreinerHormann ();
 	int boolop (BoolOpType op, Polygon& result);

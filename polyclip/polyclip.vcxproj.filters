@@ -21,6 +21,10 @@
       <UniqueIdentifier>{d4342942-e812-4c6e-8bf6-73e58fcb5199}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="martinez">
+      <UniqueIdentifier>{15869b4b-3be5-4007-bf25-6f296cbffeb3}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gpc\gpc.cpp">
@@ -54,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="PolyStruct.cpp">
       <Filter>treeclip</Filter>
+    </ClCompile>
+    <ClCompile Include="martinez\martinez.cpp">
+      <Filter>martinez</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="PolyStruct.h">
       <Filter>treeclip</Filter>
+    </ClInclude>
+    <ClInclude Include="martinez\martinez.h">
+      <Filter>martinez</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

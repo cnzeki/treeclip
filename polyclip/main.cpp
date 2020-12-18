@@ -23,6 +23,7 @@
 #include <io.h>
 
 #include "clipper/clipper.hpp"          //http://sourceforge.net/projects/polyclipping/ (clipper)
+#include "martinez/martinez.h"
 #include "greiner/greiner.h"
 #include "gpc/gpc.h"
 #include "treeclip/treeclip.h"
@@ -199,6 +200,35 @@ void LoadGPC(gpc_polygon &p, Polys& polys)
 }
 //---------------------------------------------------------------------------
 
+void LoadMartinez(Polygon &polygon, Polys &polys)
+{
+	int ncontours;
+	double px, py;
+
+	ncontours = polys.size();
+	for (int i = 0; i < ncontours; i++) {
+		int npoints, level;
+		npoints = polys[i].size();
+		level = 1;
+		Contour& contour = polygon.pushbackContour();
+		for (int j = 0; j < npoints; j++) {
+			px = polys[i][j].x;
+			py = polys[i][j].y;
+			if (j > 0 && px == contour.vertex(j - 1).x && py == contour.vertex(j - 1).y)
+				continue;
+			if (j == npoints - 1 && px == contour.vertex(0).x && py == contour.vertex(0).y)
+				continue;
+			contour.add(Point(px, py));
+		}
+		if (contour.nvertices() < 3) {
+			polygon.deletebackContour();
+			//printf("delete contour %d\n", i);
+			continue;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+
 void LoadGreiner(Polygon &polygon, Polys &polys)
 {
 	int ncontours;
@@ -273,6 +303,23 @@ void UnloadGPC(Polys& polys, gpc_polygon &p)
 	}
 }
 //---------------------------------------------------------------------------
+
+void UnloadMartinez(Polys &polys, Polygon &polygon)
+{
+	size_t ncontours = polygon.ncontours();
+	polys.resize(ncontours);
+	for (size_t i = 0; i < ncontours; i++)
+	{
+		Contour &contour = polygon.contour(i);
+		size_t npoints = contour.nvertices();
+		polys[i].resize(npoints);
+		for (size_t j = 0; j < npoints; j++)
+		{
+			polys[i][j] = contour.vertex(j);
+		};
+	}
+}
+//-------------------------------------------------------------------
 
 void UnloadGreiner(Polys &polys, Polygon &polygon)
 {
@@ -403,6 +450,39 @@ double DoGPC(Polys& subj, Polys& clip, Polys& solution, BoolType bt = Intersecti
 }
 //---------------------------------------------------------------------------
 
+double DoMartinez(Polys& subj, Polys& clip, Polys& solution, BoolType bt = Intersection)
+{
+	Polygon martinez_subj, martinez_clip, martinez_solution;
+
+	LoadMartinez(martinez_subj, subj);
+	LoadMartinez(martinez_clip, clip);
+
+	double elapsed = 0;
+	GetTicker().reset();
+	GetTicker().tick("start");
+
+	Martinez::BoolOpType op = Martinez::INTERSECTION;
+	switch (bt)
+	{
+	case Union: op = Martinez::UNION; break;
+	case Difference: op = Martinez::DIFF; break;
+	case Xor: op = Martinez::XOR; break;
+	default: op = Martinez::INTERSECTION; break;
+	}
+
+	Martinez mr(martinez_subj, martinez_clip);
+	mr.compute(op, martinez_solution);
+
+	GetTicker().record("Martinez", "start");
+	elapsed = GetTicker().getTime("Martinez");
+	GetTicker().report("Martinez");
+
+	UnloadMartinez(solution, martinez_solution);
+
+	return elapsed;
+}
+//----------------------------------------------------------------------------
+
 double DoGreiner(Polys& subj, Polys& clip, Polys& solution, BoolType bt = Intersection)
 {
 	Polygon greiner_subj, greiner_clip, greiner_solution;
@@ -415,13 +495,13 @@ double DoGreiner(Polys& subj, Polys& clip, Polys& solution, BoolType bt = Inters
 	GetTicker().reset();
 	GetTicker().tick("start");
 
-	BoolOpType op = INTERSECTION;
+	GreinerHormann::BoolOpType op = GreinerHormann::INTERSECTION;
 	switch (bt)
 	{
-	case Union: op = UNION; break;
-	case Difference: op = DIFF; break;
-	case Xor: op = XOR; break;
-	default: op = INTERSECTION; break;
+	case Union: op = GreinerHormann::UNION; break;
+	case Difference: op = GreinerHormann::DIFF; break;
+	case Xor: op = GreinerHormann::XOR; break;
+	default: op = GreinerHormann::INTERSECTION; break;
 	}
 
 	GreinerHormann gh(greiner_subj, greiner_clip);
@@ -663,6 +743,9 @@ void Do(Polys& subj, Polys& clip, Polys& sol)
 		elapsed_arr[j].first = "Clipper";
 		elapsed_arr[j++].second += DoClipper(subj, clip, sol);
 
+		elapsed_arr[j].first = "Martinez";
+		elapsed_arr[j++].second += DoMartinez(subj, clip, sol);
+
 		elapsed_arr[j].first = "Greiner";
 		elapsed_arr[j++].second += DoGreiner(subj, clip, sol);
 
@@ -688,10 +771,6 @@ void StarTest()
 	Star(clip[0], 325, 325, 300, 150, 250, 0.005);
 
 	Do(subj, clip, sol);
-
-	//clip.clear();
-	//subj.clear();
-	//sol.clear();
 
 	SimpleSVG("output/st_stars.svg", subj, clip, sol, 0, 0);
 	cout << "Test finished. ('output/st_classic.svg' file created)\n\n";
